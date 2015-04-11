@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<preConditions>
+		<runningAs username="ignite_user" />
+	</preConditions>
+
+	<changeSet id="201504061755" author="Sergey" runAlways="true">
+		<sql>
+			drop table if exists organizations cascade;
+			drop table if exists teams cascade;
+			drop table if exists teams_members cascade;
+			drop table if exists members cascade;
+		</sql>
+	</changeSet>
+
+	<changeSet id="201504061800" author="Sergey" runAlways="true">
+		<createTable tableName="organizations">
+			<column name="org_id" type="int(11)" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="org_name" type="varchar(100)" />
+		</createTable>
+		<createTable tableName="teams">
+			<column name="team_id" type="int(11)" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="team_name" type="varchar(100)" />
+			<column name="team_rating" type="int(11)" />
+			<column name="team_org_id" type="int(11)" />
+		</createTable>
+		<createTable tableName="teams_members">
+			<column name="team_member_record_id" type="int(11)"
+				autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="team_id" type="int(11)" />
+			<column name="member_id" type="int(11)" />
+		</createTable>
+		<createTable tableName="members">
+			<column name="member_id" type="int(11)" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="member_first_name" type="varchar(100)" />
+			<column name="member_last_name" type="varchar(100)" />
+		</createTable>
+	</changeSet>
+
+	<changeSet id="201504061810" author="Sergey" runAlways="true">
+		<insert tableName="organizations">
+			<column name="org_id" value="9001" />
+			<column name="org_name" value="DevSolutions Inc." />
+		</insert>
+		<insert tableName="organizations">
+			<column name="org_id" value="9002" />
+			<column name="org_name" value="SoftDesign AG" />
+		</insert>
+		<insert tableName="organizations">
+			<column name="org_id" value="9003" />
+			<column name="org_name" value="IT Engineering Service OY" />
+		</insert>
+	</changeSet>
+	<changeSet id="201504061812" author="Sergey" runAlways="true">
+		<insert tableName="teams">
+			<column name="team_id" value="10001" />
+			<column name="team_name" value="Developers Team One" />
+			<column name="team_rating" value="8" />
+			<column name="team_org_id" value="9001" />
+		</insert>
+		<insert tableName="teams">
+			<column name="team_id" value="10002" />
+			<column name="team_name" value="Test Engineers Team One" />
+			<column name="team_rating" value="7" />
+			<column name="team_org_id" value="9002" />
+		</insert>
+		<insert tableName="teams">
+			<column name="team_id" value="10003" />
+			<column name="team_name" value="Project Managers Team One" />
+			<column name="team_rating" value="7" />
+			<column name="team_org_id" value="9001" />
+		</insert>
+		<insert tableName="teams">
+			<column name="team_id" value="10004" />
+			<column name="team_name" value="Business Analysts Team One" />
+			<column name="team_rating" value="6" />
+			<column name="team_org_id" value="9001" />
+		</insert>
+		<insert tableName="teams">
+			<column name="team_id" value="10005" />
+			<column name="team_name" value="System Analysts Team One" />
+			<column name="team_rating" value="9" />
+			<column name="team_org_id" value="9002" />
+		</insert>
+		<insert tableName="teams">
+			<column name="team_id" value="10006" />
+			<column name="team_name" value="System Administrators Team One" />
+			<column name="team_rating" value="8" />
+			<column name="team_org_id" value="9003" />
+		</insert>
+		<insert tableName="teams">
+			<column name="team_id" value="10007" />
+			<column name="team_name" value="Developers Team Two" />
+			<column name="team_rating" value="8" />
+			<column name="team_org_id" value="9001" />
+		</insert>
+		<insert tableName="teams">
+			<column name="team_id" value="10008" />
+			<column name="team_name" value="Test Engineers Team Two" />
+			<column name="team_rating" value="7" />
+			<column name="team_org_id" value="9002" />
+		</insert>
+		<insert tableName="teams">
+			<column name="team_id" value="10009" />
+			<column name="team_name" value="Project Managers Team Two" />
+			<column name="team_rating" value="7" />
+			<column name="team_org_id" value="9003" />
+		</insert>
+		<insert tableName="teams">
+			<column name="team_id" value="10010" />
+			<column name="team_name" value="Business Analysts Team Two" />
+			<column name="team_rating" value="6" />
+			<column name="team_org_id" value="9001" />
+		</insert>
+		<insert tableName="teams">
+			<column name="team_id" value="10011" />
+			<column name="team_name" value="Developers Team Three" />
+			<column name="team_rating" value="8" />
+			<column name="team_org_id" value="9001" />
+		</insert>
+	</changeSet>
+	<changeSet id="201504061814" author="Sergey" runAlways="true">
+		<insert tableName="members">
+			<column name="member_id" value="70001" />
+			<column name="member_first_name" value="James" />
+			<column name="member_last_name" value="Butt" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70002" />
+			<column name="member_first_name" value="Josephine" />
+			<column name="member_last_name" value="Darakjy" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70003" />
+			<column name="member_first_name" value="Lenna" />
+			<column name="member_last_name" value="Paprocki" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70004" />
+			<column name="member_first_name" value="Donette" />
+			<column name="member_last_name" value="Foller" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70005" />
+			<column name="member_first_name" value="Simona" />
+			<column name="member_last_name" value="Morasca" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70006" />
+			<column name="member_first_name" value="Mitsue" />
+			<column name="member_last_name" value="Tollner" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70007" />
+			<column name="member_first_name" value="Leota" />
+			<column name="member_last_name" value="Dilliard" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70008" />
+			<column name="member_first_name" value="Sage" />
+			<column name="member_last_name" value="Wieser" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70009" />
+			<column name="member_first_name" value="Kris" />
+			<column name="member_last_name" value="Marrier" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70010" />
+			<column name="member_first_name" value="Minna" />
+			<column name="member_last_name" value="Amigon" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70011" />
+			<column name="member_first_name" value="Ave" />
+			<column name="member_last_name" value="Kulpsville" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70012" />
+			<column name="member_first_name" value="Abel" />
+			<column name="member_last_name" value="Maclead" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70013" />
+			<column name="member_first_name" value="Kiley" />
+			<column name="member_last_name" value="Caldarera" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70014" />
+			<column name="member_first_name" value="Graciela" />
+			<column name="member_last_name" value="Ruta" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70015" />
+			<column name="member_first_name" value="Cammy" />
+			<column name="member_last_name" value="Albares" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70016" />
+			<column name="member_first_name" value="Mattie" />
+			<column name="member_last_name" value="Poquette" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70017" />
+			<column name="member_first_name" value="Meaghan" />
+			<column name="member_last_name" value="Garufi" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70018" />
+			<column name="member_first_name" value="Gladys" />
+			<column name="member_last_name" value="Rim" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70019" />
+			<column name="member_first_name" value="Yuki" />
+			<column name="member_last_name" value="Whobrey" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70020" />
+			<column name="member_first_name" value="Fletcher" />
+			<column name="member_last_name" value="Flosi" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70021" />
+			<column name="member_first_name" value="Bette" />
+			<column name="member_last_name" value="Nicka" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70022" />
+			<column name="member_first_name" value="Willard" />
+			<column name="member_last_name" value="Kolmetz" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70023" />
+			<column name="member_first_name" value="Maryann" />
+			<column name="member_last_name" value="Royster" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70024" />
+			<column name="member_first_name" value="Alisha" />
+			<column name="member_last_name" value="Slusarski" />
+		</insert>
+		<insert tableName="members">
+			<column name="member_id" value="70025" />
+			<column name="member_first_name" value="Allene" />
+			<column name="member_last_name" value="Iturbide" />
+		</insert>
+	</changeSet>
+	<changeSet id="201504061826" author="Sergey" runAlways="true">
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="201" />
+			<column name="team_id" value="10001" />
+			<column name="member_id" value="70001" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="202" />
+			<column name="team_id" value="10011" />
+			<column name="member_id" value="70002" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="203" />
+			<column name="team_id" value="10003" />
+			<column name="member_id" value="70003" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="204" />
+			<column name="team_id" value="10005" />
+			<column name="member_id" value="70004" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="205" />
+			<column name="team_id" value="10006" />
+			<column name="member_id" value="70005" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="206" />
+			<column name="team_id" value="10005" />
+			<column name="member_id" value="70006" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="207" />
+			<column name="team_id" value="10009" />
+			<column name="member_id" value="70007" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="208" />
+			<column name="team_id" value="10002" />
+			<column name="member_id" value="70008" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="209" />
+			<column name="team_id" value="10010" />
+			<column name="member_id" value="70009" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="210" />
+			<column name="team_id" value="10001" />
+			<column name="member_id" value="70010" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="211" />
+			<column name="team_id" value="10008" />
+			<column name="member_id" value="70011" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="212" />
+			<column name="team_id" value="10002" />
+			<column name="member_id" value="70012" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="213" />
+			<column name="team_id" value="10003" />
+			<column name="member_id" value="70013" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="214" />
+			<column name="team_id" value="10005" />
+			<column name="member_id" value="70014" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="215" />
+			<column name="team_id" value="10006" />
+			<column name="member_id" value="70015" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="216" />
+			<column name="team_id" value="10005" />
+			<column name="member_id" value="70016" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="217" />
+			<column name="team_id" value="10009" />
+			<column name="member_id" value="70017" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="218" />
+			<column name="team_id" value="10002" />
+			<column name="member_id" value="70018" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="219" />
+			<column name="team_id" value="10010" />
+			<column name="member_id" value="70019" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="220" />
+			<column name="team_id" value="10007" />
+			<column name="member_id" value="70020" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="221" />
+			<column name="team_id" value="10008" />
+			<column name="member_id" value="70021" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="222" />
+			<column name="team_id" value="10004" />
+			<column name="member_id" value="70022" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="223" />
+			<column name="team_id" value="10006" />
+			<column name="member_id" value="70023" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="224" />
+			<column name="team_id" value="10003" />
+			<column name="member_id" value="70024" />
+		</insert>
+		<insert tableName="teams_members">
+			<column name="team_member_record_id" value="225" />
+			<column name="team_id" value="10005" />
+			<column name="member_id" value="70025" />
+		</insert>
+	</changeSet>
+
+</databaseChangeLog>
